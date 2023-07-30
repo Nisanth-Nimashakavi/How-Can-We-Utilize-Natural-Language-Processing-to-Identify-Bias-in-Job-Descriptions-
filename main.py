@@ -1,16 +1,12 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+import pandas as pd
+from Dbias.bias_classification import classifier, classify
+df = pd.read_csv('/home/nimnim/PycharmProjects/Lumierre_Research/DataSet - DataSet(1).csv')
+for index, row in df.iterrows():
+    value = row['description']
+    try:
+        result = classifier(value)
+        print(result[0]['label'])
+        df.loc[index, 'bias'] = result[0]['label']
+        df.to_csv("/home/nimnim/PycharmProjects/Lumierre_Research/DataSet - DataSet(1).csv", index=False)
+    except:
+        pass
